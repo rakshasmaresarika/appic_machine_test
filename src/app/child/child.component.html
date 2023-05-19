@@ -1,0 +1,26 @@
+<!-- sorting by salary -->
+<button (click)="sortOrder = 'ascending'; sortData()">Ascending</button>
+<button (click)="sortOrder = 'descending'; sortData()">Descending</button>
+
+<!-- sort by age range -->
+<select (change)="filterDataByAge($any($event.target).value)">
+  <option value="">All</option>
+  <option *ngFor="let range of ageRengesSelector" [value]="range.start+'-'+range.end">{{ range.start }}-{{range.end}}
+  </option>
+</select>
+
+<!-- search box -->
+<input type="text" [(ngModel)]="searchKeyword" placeholder="Search by name">
+
+<!-- reset button -->
+<button (click)="resetFilters()">Reset</button>
+
+<!-- employees table -->
+<table>
+  <tr>
+    <th *ngFor="let column of columns">{{ column }}</th>
+  </tr>
+  <tr *ngFor="let employee of employees | employees: searchKeyword">
+    <td *ngFor="let column of columns">{{ employee[column] }}</td>
+  </tr>
+</table>
